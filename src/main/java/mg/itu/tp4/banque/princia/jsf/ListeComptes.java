@@ -10,6 +10,7 @@ import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 import mg.itu.tp4.banque.princia.entities.CompteBancaire;
+import mg.itu.tp4.banque.princia.jsf.utilitaire.Util;
 import mg.itu.tp4.banque.princia.services.GestionnaireCompte;
 
 /**
@@ -34,5 +35,10 @@ public class ListeComptes implements Serializable {
         }
         return allComptes;
     }
-
+    
+    public String supprimerCompte(CompteBancaire compte) {
+        gestionnaireCompte.supprimer(compte);
+        Util.addFlashInfoMessage("Compte de " + compte.getNom() + " supprimé avec succès.");
+        return "listeComptes?faces-redirect=true";
+    }
 }
