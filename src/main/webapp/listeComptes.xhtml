@@ -23,7 +23,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Id"/>
                             </f:facet>
-                            <h:link value="#{compte.id}"/>
+                            <h:link outcome="mouvementBancaire?idCompte=#{compte.id}" value="#{compte.id}"/>
                         </p:column>
 
                         <p:column>

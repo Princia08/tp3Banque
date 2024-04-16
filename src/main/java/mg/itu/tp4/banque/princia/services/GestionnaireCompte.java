@@ -64,8 +64,25 @@ public class GestionnaireCompte {
         update(source);
         update(destination);
     }
+    
+    @Transactional
+    public void retirer(CompteBancaire c, int montant) {
+        c.retirer(montant);
+        update(c);
+    }
+    
+    @Transactional
+    public void verser(CompteBancaire c, int montant) {
+        c.deposer(montant);
+        update(c);
+    }
 
     public CompteBancaire getCompte(Long id) {
         return em.find(CompteBancaire.class, id);
+    }
+
+    @Transactional
+    public void supprimer(CompteBancaire compte) {
+        em.remove(em.merge(compte));
     }
 }
