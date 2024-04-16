@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
+
+            <ui:define name="top">
+                Ajout d'un nouveau compte
+            </ui:define>
+
+            <ui:define name="content">
+                  <f:view>
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Nom:" for="nom" style="width:150px"/>
+                            <h:inputText id="nom" value="#{ajoutCompte.nom}" title="nom" required="true"/>
+                            <h:outputLabel value="Solde:" for="solde" style="width:150px"/>
+                            <h:inputText id="solde" value="#{ajoutCompte.solde}" title="solde" required="true"/>
+                            <h:commandButton id="ajoutCompte" value="Ajouter" action="#{ajoutCompte.ajouterCompte()}"/>
+                        </h:panelGrid>
+                        <h:messages infoStyle="color: green;" errorStyle="color: red;"/>      
+                    </h:form>
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
