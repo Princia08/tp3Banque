@@ -7,7 +7,6 @@ package mg.itu.tp4.banque.princia.jsf;
 import jakarta.inject.Named;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
-import jakarta.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import mg.itu.tp4.banque.princia.entities.CompteBancaire;
 import mg.itu.tp4.banque.princia.jsf.utilitaire.Util;
@@ -17,23 +16,21 @@ import mg.itu.tp4.banque.princia.services.GestionnaireCompte;
  *
  * @author princ
  */
-@Named(value = "mouvementBancaire")
+@Named(value = "modifierCompte")
 @ViewScoped
-public class MouvementBancaire implements Serializable {
+public class ModifierCompte implements Serializable {
 
     private Long idCompte;
     private CompteBancaire compte;
-
-    @PositiveOrZero
-    private int montant;
+    private String nomInitial;
 
     @Inject
-    private GestionnaireCompte gc;
+    private GestionnaireCompte gestionnaireCompte;
 
     /**
-     * Creates a new instance of MouvementBancaire
+     * Creates a new instance of ModifierCompte
      */
-    public MouvementBancaire() {
+    public ModifierCompte() {
     }
 
     public Long getIdCompte() {
@@ -44,14 +41,6 @@ public class MouvementBancaire implements Serializable {
         this.idCompte = idCompte;
     }
 
-    public int getMontant() {
-        return montant;
-    }
-
-    public void setMontant(int montant) {
-        this.montant = montant;
-    }
-
     public CompteBancaire getCompte() {
         return compte;
     }
@@ -60,19 +49,22 @@ public class MouvementBancaire implements Serializable {
         this.compte = compte;
     }
 
-    public String retirer() {
-        gc.retirer(compte, montant);
-        Util.addFlashInfoMessage("Retrait de " + montant + " EUR du compte de " + compte.getNom() + " correctement effectué.");
-        return "listeComptes?faces-redirect=true";
+    public String getNomInitial() {
+        return nomInitial;
     }
 
-    public String verser() {
-        gc.verser(compte, montant);
-        Util.addFlashInfoMessage("Versement de " + montant + " EUR du compte de " + compte.getNom() + " correctement effectué.");
-        return "listeComptes?faces-redirect=true";
+    public void setNomInitial(String nomInitial) {
+        this.nomInitial = nomInitial;
     }
 
     public void chargerCompte() {
-        this.compte = gc.getCompte(idCompte);
+        this.compte = gestionnaireCompte.getCompte(idCompte);
+        this.nomInitial = this.compte.getNom();
+    }
+
+    public String modifierCompte() {
+        gestionnaireCompte.update(compte);
+        Util.addFlashInfoMessage("Le nom " + this.nomInitial + " a été changé en " + compte.getNom());
+        return "listeComptes?faces-redirect=true";
     }
 }

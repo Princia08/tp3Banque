@@ -25,7 +25,7 @@ public class TransfertArgent implements Serializable {
     private int montant;
 
     @Inject
-    GestionnaireCompte gestionnaireCompte;
+    private GestionnaireCompte gestionnaireCompte;
 
     /**
      * Creates a new instance of TransfertArgent

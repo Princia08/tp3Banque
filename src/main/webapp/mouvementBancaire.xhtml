@@ -20,12 +20,13 @@
             </ui:define>
 
             <ui:define name="content">
-                <h3>Mouvement sur le compte de #{mouvementBancaire.compte.nom} numéro #{mouvementBancaire.idCompte} </h3>
-                <h5>Entrer un montant puis cliquer sur retirer ou verser selon votre choix</h5>
+                <h1>Mouvement sur le compte de #{mouvementBancaire.compte.nom} numéro #{mouvementBancaire.idCompte} </h1>
+                <h3>Entrer un montant puis cliquer sur retirer ou verser selon votre choix</h3>
+                <p>Solde actuel: #{mouvementBancaire.compte.solde} </p>
                 <f:view>
                     <h:form>
                         <h:panelGrid columns="4">
-                            <h:outputLabel value="Solde:" for="solde" style="width:150px"/>
+                            <h:outputLabel value="Montant:" for="solde" style="width:150px"/>
                             <h:inputText id="solde" value="#{mouvementBancaire.montant}" title="solde" required="true"/> 
                             <h:commandButton id="retirer" value="Retirer" action="#{mouvementBancaire.retirer()}"/>
                             <h:commandButton id="verser" value="Verser" action="#{mouvementBancaire.verser()}"/>

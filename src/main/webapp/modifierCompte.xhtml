@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
+
+            <ui:define name="metadata">
+                <f:metadata>
+                    <f:viewParam name="idCompte" value="#{modifierCompte.idCompte}" />
+                    <f:viewAction action="#{modifierCompte.chargerCompte}"/>
+                </f:metadata>
+            </ui:define>
+
+            <ui:define name="top">
+                Modification d'un compte 
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form>
+                        <h1>Modification du compte de #{modifierCompte.compte.nom}</h1>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Id:" for="id" />
+                            <h:inputText id="id" value="#{modifierCompte.compte.id}" title="Id" readonly="true" />
+                            <h:outputLabel value="Nom:" for="nom" />
+                            <h:inputText id="nom" value="#{modifierCompte.compte.nom}" title="Nom" />
+                            <h:commandButton id="modifierCompte" value="Modifier" action="#{modifierCompte.modifierCompte()}"/>
+                        </h:panelGrid>
+                        <h:messages infoStyle="color: green;" errorStyle="color: red;"/>      
+                    </h:form>
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
