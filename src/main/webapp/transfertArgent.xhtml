@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
+
+            <ui:define name="top">
+                Transférer de l'argent d'un compte vers un autre
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="idSource:" for="idSource" style="width:150px"/>
+                            <h:inputText id="idSource" value="#{transfertArgent.idSource}" title="idSource" required="true"/>
+                            <h:outputLabel value="idDestinataire:" for="idDestinataire" style="width:150px"/>
+                            <h:inputText id="idDestinataire" value="#{transfertArgent.idDestinataire}" title="idDestinataire" required="true"/>
+                            <h:outputLabel value="montant:" for="montant" style="width:150px"/>
+                            <h:inputText id="montant" value="#{transfertArgent.montant}" title="montant" required="true"/>
+                            <h:commandButton id="transfererArgent" value="Transferer" action="#{transfertArgent.transfererArgent()}"/>
+                        </h:panelGrid>
+                        <h:messages infoStyle="color: green;" errorStyle="color: red;"/>      
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
