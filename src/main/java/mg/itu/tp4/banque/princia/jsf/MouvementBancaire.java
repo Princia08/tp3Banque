@@ -61,9 +61,14 @@ public class MouvementBancaire implements Serializable {
     }
 
     public String retirer() {
-        gc.retirer(compte, montant);
-        Util.addFlashInfoMessage("Retrait de " + montant + " EUR du compte de " + compte.getNom() + " correctement effectué.");
-        return "listeComptes?faces-redirect=true";
+        if (montant > compte.getSolde()) {
+            Util.messageErreur("Votre solde est insuffisant", "Votre solde est insuffisant", "form:mouvementBancaire");
+            return null;
+        } else {
+            gc.retirer(compte, montant);
+            Util.addFlashInfoMessage("Retrait de " + montant + " EUR du compte de " + compte.getNom() + " correctement effectué.");
+            return "listeComptes?faces-redirect=true";
+        }
     }
 
     public String verser() {
