@@ -7,6 +7,7 @@ package mg.itu.tp4.banque.princia.jsf;
 import jakarta.inject.Named;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import mg.itu.tp4.banque.princia.entities.CompteBancaire;
 import mg.itu.tp4.banque.princia.jsf.utilitaire.Util;
@@ -22,6 +23,8 @@ public class TransfertArgent implements Serializable {
 
     private Long idSource;
     private Long idDestinataire;
+    
+    @PositiveOrZero
     private int montant;
 
     @Inject
