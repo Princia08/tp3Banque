@@ -62,7 +62,7 @@ public class MouvementBancaire implements Serializable {
 
     public String retirer() {
         if (montant > compte.getSolde()) {
-            Util.messageErreur("Votre solde est insuffisant", "Votre solde est insuffisant", "form:mouvementBancaire");
+            Util.messageErreur("Votre solde est insuffisant", "Votre solde est insuffisant");
             return null;
         } else {
             gc.retirer(compte, montant);
