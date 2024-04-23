@@ -29,7 +29,7 @@ public class CompteBancaire implements Serializable {
     private Long id;
     private String nom;
     private int solde;
-    
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OperationBancaire> operations = new ArrayList<>();
 
@@ -38,11 +38,13 @@ public class CompteBancaire implements Serializable {
     }
 
     public CompteBancaire() {
+        operations.add(new OperationBancaire("Création du compte", solde));
     }
 
     public CompteBancaire(String nom, int solde) {
         this.nom = nom;
         this.solde = solde;
+        operations.add(new OperationBancaire("Création du compte", solde));
     }
 
     public Long getId() {
@@ -67,11 +69,13 @@ public class CompteBancaire implements Serializable {
 
     public void deposer(int montant) {
         solde += montant;
+        operations.add(new OperationBancaire("Crédit", montant));
     }
 
     public void retirer(int montant) {
         if (montant < solde) {
             solde -= montant;
+            operations.add(new OperationBancaire("Débit", -montant));
         } else {
             solde = 0;
         }
