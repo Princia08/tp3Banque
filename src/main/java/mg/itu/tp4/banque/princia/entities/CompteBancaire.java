@@ -38,7 +38,6 @@ public class CompteBancaire implements Serializable {
     }
 
     public CompteBancaire() {
-        operations.add(new OperationBancaire("Création du compte", solde));
     }
 
     public CompteBancaire(String nom, int solde) {
