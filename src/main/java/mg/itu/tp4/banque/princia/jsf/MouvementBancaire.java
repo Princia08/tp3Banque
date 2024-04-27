@@ -7,6 +7,7 @@ package mg.itu.tp4.banque.princia.jsf;
 import jakarta.inject.Named;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.OptimisticLockException;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import mg.itu.tp4.banque.princia.entities.CompteBancaire;
@@ -61,20 +62,32 @@ public class MouvementBancaire implements Serializable {
     }
 
     public String retirer() {
-        if (montant > compte.getSolde()) {
-            Util.messageErreur("Votre solde est insuffisant", "Votre solde est insuffisant");
-            return null;
-        } else {
-            gc.retirer(compte, montant);
-            Util.addFlashInfoMessage("Retrait de " + montant + " EUR du compte de " + compte.getNom() + " correctement effectué.");
-            return "listeComptes?faces-redirect=true";
-        }
+        try {
+            if (montant > compte.getSolde()) {
+                Util.messageErreur("Votre solde est insuffisant", "Votre solde est insuffisant");
+                return null;
+            } else {
+                gc.retirer(compte, montant);
+                Util.addFlashInfoMessage("Retrait de " + montant + " EUR du compte de " + compte.getNom() + " correctement effectué.");
+                return "listeComptes?faces-redirect=true";
+            }
+        } catch (OptimisticLockException ex) {
+            Util.messageErreur("Le compte de " + compte.getNom()
+                    + " a été modifié ou supprimé par un autre utilisateur !");
+            return null; // pour rester sur la page s'il y a une exception
+        } // end try
     }
 
     public String verser() {
-        gc.verser(compte, montant);
-        Util.addFlashInfoMessage("Versement de " + montant + " EUR du compte de " + compte.getNom() + " correctement effectué.");
-        return "listeComptes?faces-redirect=true";
+        try {
+            gc.verser(compte, montant);
+            Util.addFlashInfoMessage("Versement de " + montant + " EUR du compte de " + compte.getNom() + " correctement effectué.");
+            return "listeComptes?faces-redirect=true";
+        } catch (OptimisticLockException ex) {
+            Util.messageErreur("Le compte de " + compte.getNom()
+                    + " a été modifié ou supprimé par un autre utilisateur !");
+            return null; // pour rester sur la page s'il y a une exception
+        } // end try
     }
 
     public void chargerCompte() {
